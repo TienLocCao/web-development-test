@@ -5,13 +5,12 @@ import Layout from "@/app/components/public/Layout";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { Post, SearchFilters } from "@/app/types";
 import { ApiService } from "@/app/services/api";
-import SearchAndFilter from "@/app/components/posts/SearchAndFilter";
-import PostCard from "@/app/components/posts/PostCard";
 import { useRouter } from "next/navigation";
+import PostContent from "@/app/components/posts/PostContent";
 
 const ITEMS_PER_PAGE = 10;
 
-const NewsFeed = () => {
+const LayoutPost = () => {
   const { isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -69,7 +68,7 @@ const NewsFeed = () => {
       });
 
       setPosts((prev) => [...prev, ...sortedPosts]);
-      setHasMore(result.posts.length === ITEMS_PER_PAGE); // còn dữ liệu hay không
+      setHasMore(result.posts.length === ITEMS_PER_PAGE);
     } catch (err) {
       setError("Failed to fetch posts. Please try again.");
       console.error("Error fetching posts:", err);
@@ -105,8 +104,8 @@ const NewsFeed = () => {
         }
       },
       {
-        root: container,        // 👈 scrollable container
-        rootMargin: "0px 0px 500px 0px",    // 👈 load trước khi chạm cuối
+        root: container,
+        rootMargin: "0px 0px 500px 0px",
         threshold: 0.1,
       }
     );
@@ -143,44 +142,28 @@ const NewsFeed = () => {
 
   return (
     <Layout containerRef={containerRef}>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Posts</h1>
-          <p className="text-gray-600">
-            Explore posts from our community. Use the search and filters below to find what you're looking for.
-          </p>
+      <div className="max-w-7xl mx-auto grid grid-cols-4 h-navbar px-6">
+        <div className="flex space-x-2">
+          content left
         </div>
-
-        <SearchAndFilter
-          onSearch={handleSearch}
-          onSort={handleSort}
-          currentQuery={filters.query}
-          currentUserId={filters.userId}
-          currentSortBy={filters.sortBy}
-          currentSortOrder={filters.sortOrder}
-        />
-
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-            {error}
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 gap-6 mb-8">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+        <div className="h-full flex justify-center items-center col-span-2">
+          <PostContent
+            posts={posts}
+            filters={filters}
+            error={error}
+            loading={loading}
+            sentinelRef={sentinelRef}
+            onSearch={handleSearch}
+            onSort={handleSort}
+          />
         </div>
-
-        {loading && (
-          <div className="text-center py-6">
-          </div>
-        )}
-
-        <div ref={sentinelRef} className="h-10"></div>
-      </main>
+        <div className="flex space-x-4">
+            content right
+        </div>
+      </div>
+      
     </Layout>
   );
 };
 
-export default NewsFeed;
+export default LayoutPost;
