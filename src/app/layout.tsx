@@ -6,7 +6,7 @@ import { AuthProvider } from './contexts/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'JSONPlaceholder App - Posts & Comments',
+  title: 'Web Development Test',
   description: 'A feature-rich web application to interact with JSONPlaceholder API',
 }
 

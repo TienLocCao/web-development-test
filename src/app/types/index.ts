@@ -36,6 +36,7 @@ export interface Comment {
   name: string
   email: string
   body: string
+  isPending?: boolean
 }
 
 export interface PostWithComments extends Post {

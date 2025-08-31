@@ -1,19 +1,22 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Post } from '@/app/types'
 import { User, MessageCircle, Calendar, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import PostDetailDialog from '@/app/components/posts/DetailDailog'
 
 interface PostCardProps {
   post: Post
 }
 
 export default function PostCard({ post }: PostCardProps) {
+  const [open, setOpen] = useState(false)
   const router = useRouter()
 
   const handleClick = () => {
-    router.push(`/posts/${post.id}`)
+    setOpen(true);
+    // router.push(`/posts/${post.id}`)
   }
 
   const truncateText = (text: string, maxLength: number) => {
@@ -22,7 +25,7 @@ export default function PostCard({ post }: PostCardProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 overflow-hidden">
+    <article className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 overflow-hidden mb-4">
       <div className="p-6">
         {/* Post Header */}
         <div className="flex items-start justify-between mb-4">
@@ -58,21 +61,23 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Post Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div className="flex items-center space-x-4 text-sm text-gray-500">
-            <div className="flex items-center space-x-1">
+            <button className="flex items-center space-x-1 hover:text-blue-500" onClick={handleClick}>
               <MessageCircle className="w-4 h-4" />
               <span>Comments</span>
-            </div>
+            </button>
           </div>
           
-          <button
+          {/* <button
             onClick={handleClick}
             className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors group"
           >
             <span>Read more</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </button> */}
         </div>
       </div>
-    </div>
+
+      <PostDetailDialog id={post.id} open={open} onOpenChange={setOpen} />
+    </article>
   )
 }
