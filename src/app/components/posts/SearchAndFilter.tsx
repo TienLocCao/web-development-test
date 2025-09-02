@@ -84,7 +84,7 @@ export default function SearchAndFilter({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center space-x-4">
           {/* Filter Button */}
-          <button
+          {/* <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
             className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
@@ -95,7 +95,7 @@ export default function SearchAndFilter({
                 {[query, selectedUserId].filter(Boolean).length}
               </span>
             )}
-          </button>
+          </button> */}
 
           {/* Clear Filters */}
           {hasActiveFilters && (
@@ -110,7 +110,7 @@ export default function SearchAndFilter({
         </div>
 
         {/* Sort Controls */}
-        <div className="flex items-center space-x-2">
+        {/* <div className="flex items-center space-x-2">
           <span className="text-sm text-gray-600">Sort by:</span>
           {(['title', 'id', 'userId'] as const).map((sortBy) => (
             <button
@@ -130,7 +130,7 @@ export default function SearchAndFilter({
               )}
             </button>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* Filter Panel */}

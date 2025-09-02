@@ -3,10 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { Post, SearchFilters } from "@/app/types";
-import SearchAndFilter from "@/app/components/posts/SearchAndFilter";
 import PostCard from "@/app/components/posts/PostCard";
 import { ApiService } from "@/app/services/api";
-import { Loader } from 'lucide-react'
+import PostSkeleton from "./PostSkeleton";
 
 const ITEMS_PER_PAGE = 15;
 
@@ -38,38 +37,15 @@ const PostContent: React.FC<PostContentProps> = ({ containerRef }) => {
 
       if (filters.query) {
         result = await ApiService.searchPosts(filters.query, reset ? 1 : page, ITEMS_PER_PAGE);
-      } else if (filters.userId) {
-        result = await ApiService.getPostsByUser(filters.userId, reset ? 1 : page, ITEMS_PER_PAGE);
       } else {
         result = await ApiService.getPosts(reset ? 1 : page, ITEMS_PER_PAGE);
       }
 
-      // Sort lại
-      let sorted = [...result.posts].sort((a, b) => {
-        let aValue: any, bValue: any;
-        switch (filters.sortBy) {
-          case "title":
-            aValue = a.title.toLowerCase();
-            bValue = b.title.toLowerCase();
-            break;
-          case "userId":
-            aValue = a.userId;
-            bValue = b.userId;
-            break;
-          default:
-            aValue = a.id;
-            bValue = b.id;
-        }
-        return filters.sortOrder === "asc"
-          ? aValue > bValue ? 1 : -1
-          : aValue < bValue ? 1 : -1;
-      });
-
       if (reset) {
-        setPosts(sorted);
+        setPosts(result.posts);
         setPage(2);
       } else {
-        setPosts((prev) => [...prev, ...sorted]);
+        setPosts((prev) => [...prev, ...result.posts]);
         setPage((prev) => prev + 1);
       }
 
@@ -82,44 +58,13 @@ const PostContent: React.FC<PostContentProps> = ({ containerRef }) => {
     }
   };
 
-  // 🔹 Handlers
-  const handleSearch = (query: string, userId?: number) => {
-    setFilters((prev) => ({ ...prev, query, userId }));
-    setPage(1);
-    setHasMore(true);
-    fetchPosts(true);
-  };
-
-  const handleSort = (sortBy: "title" | "id" | "userId", sortOrder: "asc" | "desc") => {
-    setFilters((prev) => ({ ...prev, sortBy, sortOrder }));
-    setPage(1);
-    setHasMore(true);
-    fetchPosts(true);
-  };
-
   // 🔹 Initial load
   useEffect(() => {
     fetchPosts(true);
   }, []);
 
   return (
-    <main className="max-w-2xl w-full px-4 sm:px-6 lg:px-8 py-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Posts</h1>
-        <p className="text-gray-600">
-          Explore posts from our community. Use search and filters to find content.
-        </p>
-      </div>
-
-      <SearchAndFilter
-        onSearch={handleSearch}
-        onSort={handleSort}
-        currentQuery={filters.query}
-        currentUserId={filters.userId}
-        currentSortBy={filters.sortBy}
-        currentSortOrder={filters.sortOrder}
-      />
-
+    <main className="w-full mb-10">
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
           {error}
@@ -137,9 +82,10 @@ const PostContent: React.FC<PostContentProps> = ({ containerRef }) => {
         }}
         components={{
           Footer: () =>
-            true ? (
-              <div className="flex justify-center py-4 text-gray-500">
-                <Loader className="w-8 h-8 animate-spin" />
+            loading ? (
+              <div>
+                <PostSkeleton />
+                <PostSkeleton />
               </div>
             ) : null,
         }}

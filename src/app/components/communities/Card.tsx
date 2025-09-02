@@ -1,64 +1,32 @@
-"use client";
+import { Users } from "lucide-react";
 
-import { Plus, Search, ShieldCheck } from "lucide-react";
-
-interface Community {
+export interface Community {
   id: string;
   name: string;
-  shortName: string; // ví dụ: "BIC"
-  badge?: string; // ví dụ: "NFT"
-  verified?: boolean;
+  image: string;
+  members: number;
+  contentPerWeek?: string;
 }
 
-const communities: Community[] = [
-  {
-    id: "1",
-    name: "Beincom Việt Nam",
-    shortName: "BIC",
-    badge: "NFT",
-    verified: true,
-  },
-];
-
-export default function CommunitiesCard() {
+export default function CommunityCard({ community }: { community: Community }) {
   return (
-    <aside className="bg-white rounded-lg p-4 shadow-sm w-72">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-3">
-        <h2 className="text-sm font-semibold text-gray-700">
-          Your communities
-        </h2>
-        <div className="flex gap-2">
-          <button className="p-1 rounded-full hover:bg-gray-200">
-            <Search size={16} />
-          </button>
-          <button className="p-1 rounded-full hover:bg-gray-200">
-            <Plus size={16} />
-          </button>
-        </div>
+    <div className="bg-white rounded-lg shadow-sm border p-3 flex flex-col">
+      <img
+        src={community.image}
+        alt={community.name}
+        className="w-full h-28 object-cover rounded-md"
+      />
+      <h3 className="mt-2 font-semibold text-sm line-clamp-2">{community.name}</h3>
+      <div className="flex items-center text-xs text-gray-500 mt-1">
+        <Users className="w-4 h-4 mr-1" />
+        {community.members}
+        {community.contentPerWeek && (
+          <span className="ml-2">{community.contentPerWeek}</span>
+        )}
       </div>
-
-      {/* Community list */}
-      <div className="flex items-center gap-2">
-        {/* Avatar bằng text */}
-        <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white text-xs font-bold">
-          {communities[0].shortName}
-          {/* Badge nhỏ */}
-          {communities[0].badge && (
-            <span className="absolute -bottom-1 -right-1 bg-indigo-500 text-white text-[10px] px-1 py-0.5 rounded-md font-semibold">
-              {communities[0].badge}
-            </span>
-          )}
-        </div>
-
-        {/* Tên + verified */}
-        <span className="text-sm font-medium text-blue-600 flex items-center gap-1">
-          {communities[0].name}
-          {communities[0].verified && (
-            <ShieldCheck size={14} className="text-blue-500" />
-          )}
-        </span>
-      </div>
-    </aside>
+      <button className="mt-2 w-full py-1.5 bg-purple-600 text-white text-sm rounded hover:bg-purple-700">
+        Join
+      </button>
+    </div>
   );
 }

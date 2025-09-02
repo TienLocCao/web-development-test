@@ -8,7 +8,7 @@ import { ApiService } from '@/app/services/api'
 import Comment from '@/app/components/comments/Comment'
 import CommentForm from '@/app/components/comments/CommentForm'
 import { User, Calendar, MessageCircle, Loader2 } from 'lucide-react'
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/app/components/ui/dialog"
 
 interface Props {
   id: number,

@@ -66,14 +66,6 @@ export default function PostCard({ post }: PostCardProps) {
               <span>Comments</span>
             </button>
           </div>
-          
-          {/* <button
-            onClick={handleClick}
-            className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors group"
-          >
-            <span>Read more</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button> */}
         </div>
       </div>
 

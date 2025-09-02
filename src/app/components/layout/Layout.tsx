@@ -1,6 +1,6 @@
 'use client';
 import React, {useRef} from 'react';
-import Header from '@/app/components/layout/Header'
+import Header from '@/app/components/layout/header/Header'
 import { useRedirectIfHome } from '@/app/hooks/useRedirectIfHome';
 
 interface LayoutProps {
