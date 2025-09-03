@@ -2,23 +2,15 @@ import * as Popover from "@radix-ui/react-popover";
 import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 import NotificationList, { Notification } from "./NotificationList";
+import { getNotifications } from "@/app/services/notifications"
 
 export default function NotificationPopover() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts?_limit=5")
-      .then((res) => res.json())
-      .then((data) => {
-        const mapped: Notification[] = data.map((post: any) => ({
-          id: String(post.id),
-          title: post.title,
-          message: post.body,
-          time: "Vừa xong",
-          read: false,
-        }));
-        setNotifications(mapped);
-      });
+    getNotifications(5).then(setNotifications).catch((err) => {
+      console.error("Error fetching notifications:", err)
+    })
   }, []);
 
   const handleItemClick = (id: string) => {

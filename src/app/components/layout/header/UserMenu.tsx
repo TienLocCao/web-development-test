@@ -30,7 +30,7 @@ export default function UserMenu() {
       {/* Trigger (nút avatar/user icon) */}
       <Popover.Trigger asChild className="data-[state=open]:text-blue-500">
         <button className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors">
-          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+          <div className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center">
             <User className="w-5 h-5 hover:text-blue-500" />
           </div>
         </button>
@@ -39,7 +39,8 @@ export default function UserMenu() {
       {/* Nội dung dropdown */}
       <Popover.Portal>
         <Popover.Content
-          className="z-50 mt-2 w-72 bg-white rounded-md shadow-lg border border-gray-200"
+          side="bottom"
+          className="z-50 w-72 bg-white rounded-md shadow-lg border border-gray-200"
           align="center"
         >
           <div className="px-4 py-2 border-b border-gray-100">
@@ -55,7 +56,7 @@ export default function UserMenu() {
           </button>
 
           {/* Mũi tên Popover */}
-          <Popover.Arrow className="fill-white stroke-gray-700" />
+          <Popover.Arrow className="fill-gray stroke-gray-700" />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

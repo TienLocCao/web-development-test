@@ -4,9 +4,9 @@ import { Home, Users, Store } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
 const navLinks = [
-  { name: "Newsfeed", href: "/newsfeed", icon: Home },
-  { name: "Communities", href: "/communities", icon: Users },
-  { name: "Marketplace", href: "/marketplace", icon: Store },
+  { name: "Newsfeed", href: "/newsfeed", icon: Home, isDisabled: false },
+  { name: "Communities", href: "/communities", icon: Users, isDisabled: false },
+  { name: "Marketplace", href: "/marketplace", icon: Store, isDisabled: true },
 ];
 
 export default function NavLinks() {
@@ -18,7 +18,14 @@ export default function NavLinks() {
       {navLinks.map((item, index) => {
         const isActive = pathname === item.href;
         return (
-          <button key={index} onClick={() => router.push(item.href)}>
+          <button
+            key={index}
+            onClick={() => !item.isDisabled && router.push(item.href)}
+            disabled={item.isDisabled}
+            className={`group flex h-12 w-20 flex-col justify-between rounded-t-lg 
+              ${item.isDisabled ? "cursor-not-allowed opacity-50" : "hover:bg-neutral-200"}
+            `}
+          >
             <div className="group flex h-12 w-20 flex-col justify-between rounded-t-lg hover:bg-neutral-2">
               <span
                 className={`h-10 w-full flex items-center justify-center ${

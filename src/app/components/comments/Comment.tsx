@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Comment as CommentType } from '@/app/types'
+import { Comment as CommentType } from '@/app/types/comment'
 import { User, Mail, Calendar, Loader2 } from 'lucide-react'
 
 interface CommentProps {

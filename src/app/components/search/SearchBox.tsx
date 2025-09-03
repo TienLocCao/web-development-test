@@ -1,19 +1,34 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 
-export default function SearchBox() {
+import { useRef, useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
+interface SearchBoxProps {
+  width?: string;
+}
+
+export default function SearchBox({ width = "" }: SearchBoxProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasText, setHasText] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+
+  useEffect(() => {
+    const query = searchParams.get("q") || "";
+    if (inputRef.current) {
+      inputRef.current.value = query;
+      setHasText(!!query);
+    }
+  }, [searchParams.toString()])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
       const value = inputRef.current.value.trim();
       if (value) {
-        router.push(`/search?q=${encodeURIComponent(value)}`);
+        router.replace(`/search?q=${encodeURIComponent(value)}`);
       }
     }
   };
@@ -27,6 +42,7 @@ export default function SearchBox() {
       inputRef.current.value = "";
       setHasText(false);
       inputRef.current.focus();
+      router.replace("/search");
     }
   };
 
@@ -38,7 +54,7 @@ export default function SearchBox() {
         placeholder="Search content"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        className="pl-4 pr-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 text-sm"
+        className={`pl-4 pr-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500  ${width} text-sm`}
       />
       
       {hasText && (

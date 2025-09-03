@@ -13,7 +13,6 @@ const LayoutPost = () => {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Redirect nếu chưa login
   if (!authLoading && !isAuthenticated) {
     router.push("/auth");
     return null;
@@ -29,17 +28,23 @@ const LayoutPost = () => {
 
   return (
     <Layout containerRef={containerRef}>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_300px] xl:grid-cols-[300px_1fr_300px] h-navbar px-6 ">
-        <div className="hidden xl:block flex space-x-2 py-8">
-          <CommunitiesMyCommunities />
+      <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_300px] xl:grid-cols-[300px_1fr_300px] h-navbar px-6">
+          <div className="hidden xl:block">
+            <div className="sticky top-8">
+              <CommunitiesMyCommunities />
+            </div>
+          </div>
+
+          <div className="flex justify-center md:px-6 lg:px-8 py-8">
+            <PostContent containerRef={containerRef} />
+          </div>
+
+          <div className="hidden md:block">
+            <div className="sticky top-8">
+              <TrendingCard />
+            </div>
+          </div>
         </div>
-        <div className="flex justify-center md:px-6 lg:px-8 py-6 ">
-          <PostContent containerRef={containerRef} />
-        </div>
-        <div className="hidden md:block flex space-x-4 py-8">
-          <TrendingCard />
-        </div>
-      </div>
     </Layout>
   );
 };

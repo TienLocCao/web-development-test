@@ -4,7 +4,7 @@ import { Bell, Wallet } from "lucide-react";
 import { useState } from "react";
 import LogoSection from "./LogoSection";
 import NavLinks from "./NavLinks";
-import SearchBox from "./SearchBox";
+import SearchBox from "../../search/SearchBox";
 import UserMenu from "./UserMenu";
 import NotificationDialog from "@/app/components/notifications/NotificationDialog";
 
@@ -12,7 +12,7 @@ export default function Header() {
   const [notifCount] = useState(1);
 
   return (
-    <header className="fixed top-0 z-header w-full bg-white shadow z-99999">
+    <header className="fixed top-0 z-header w-full bg-white shadow z-49">
       <div className="max-w-7xl mx-auto grid grid-cols-[1fr_300px] xl:grid-cols-[300px_1fr_300px] items-center h-navbar px-6">
         
         {/* Left */}
@@ -21,7 +21,7 @@ export default function Header() {
         {/* Middle */}
         <div className="h-full flex justify-center items-center space-x-4">
           <NavLinks />
-          <SearchBox />
+          <SearchBox width="w-64" />
         </div>
 
         {/* Right */}

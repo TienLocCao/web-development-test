@@ -45,8 +45,6 @@ export interface PostWithComments extends Post {
 
 export interface SearchFilters {
   query: string
-  userId?: number
-  sortBy: 'title' | 'id' | 'userId'
   sortOrder: 'asc' | 'desc'
 }
 

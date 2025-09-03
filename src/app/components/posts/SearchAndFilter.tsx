@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { Search, Filter, X } from 'lucide-react'
-import { User } from '@/app/types'
-import { ApiService } from '@/app/services/api'
+import { User } from '@/app/types/user'
+import { getUsers } from '@/app/services/users'
 
 interface SearchAndFilterProps {
   onSearch: (query: string, userId?: number) => void
@@ -31,7 +31,7 @@ export default function SearchAndFilter({
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const usersData = await ApiService.getUsers()
+        const usersData = await getUsers()
         setUsers(usersData)
       } catch (error) {
         console.error('Error fetching users:', error)

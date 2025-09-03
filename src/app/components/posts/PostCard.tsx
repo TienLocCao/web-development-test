@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Post } from '@/app/types'
+import { Post } from '@/app/types/post'
 import { User, MessageCircle, Calendar, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import PostDetailDialog from '@/app/components/posts/DetailDailog'
+import PostDetailDialog from '@/app/components/posts/detail/Dailog'
 
 interface PostCardProps {
   post: Post
@@ -69,7 +69,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
       </div>
 
-      <PostDetailDialog id={post.id} open={open} onOpenChange={setOpen} />
+      <PostDetailDialog post={post} open={open} onOpenChange={setOpen} />
     </article>
   )
 }

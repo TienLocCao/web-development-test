@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react'
 import { useAuth } from '@/app/contexts/AuthContext'
-import { ApiService } from '@/app/services/api'
-import { Send, Smile, ImageIcon } from 'lucide-react'
+import { addComment } from '@/app/services/comments'
+import { Send, ImageIcon } from 'lucide-react'
+import { toast } from 'react-toastify'
+import EmojiPicker from '@/app/components/comments/EmojiPicker'
 
 interface CommentFormProps {
   postId: number
@@ -15,7 +17,10 @@ export default function CommentForm({ postId, onOptimisticAdd, onServerSync }: C
   const { user } = useAuth()
   const [body, setBody] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+
+  const addEmoji = (emoji: any) => {
+    setBody((prev) => prev + (emoji.native || ''))
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,13 +29,12 @@ export default function CommentForm({ postId, onOptimisticAdd, onServerSync }: C
     onOptimisticAdd(body.trim())
     const currentBody = body.trim()
     setBody('')
-    setError('')
     setLoading(true)
 
     try {
       await new Promise((res) => setTimeout(res, 10000))
-      
-      await ApiService.addComment(postId, {
+
+      await addComment(postId, {
         postId,
         name: user?.name || 'You',
         email: user?.email || 'you@example.com',
@@ -39,7 +43,7 @@ export default function CommentForm({ postId, onOptimisticAdd, onServerSync }: C
       onServerSync()
     } catch (err) {
       console.error(err)
-      setError('Failed to add comment. Please try again.')
+      toast.error('Failed to add comment. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -49,12 +53,7 @@ export default function CommentForm({ postId, onOptimisticAdd, onServerSync }: C
     <div className="border-t border-gray-200 p-2 bg-white flex items-center space-x-2 rounded-lg">
       {/* Icons left */}
       <div className="flex space-x-1">
-        <button type="button" className="p-2 rounded-full hover:bg-gray-100">
-          <Smile className="w-5 h-5 text-gray-500" />
-        </button>
-        <button type="button" className="p-2 rounded-full hover:bg-gray-100">
-          <ImageIcon className="w-5 h-5 text-gray-500" />
-        </button>
+        <EmojiPicker onSelect={addEmoji} />
       </div>
 
       {/* Input */}
@@ -84,13 +83,6 @@ export default function CommentForm({ postId, onOptimisticAdd, onServerSync }: C
           )}
         </button>
       </form>
-
-      {/* Error message */}
-      {error && (
-        <div className="absolute bottom-full mb-2 left-0 right-0 px-4 py-2 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-          {error}
-        </div>
-      )}
     </div>
   )
 }
