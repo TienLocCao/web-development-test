@@ -3,19 +3,27 @@
 import React, { useState } from 'react'
 import { useAuth } from '@/app/contexts/AuthContext'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
+import { openAuthPopup } from "@/lib/auth-popup";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface LoginFormProps {
   onSwitchToSignup: () => void
 }
 
 export default function LoginForm({ onSwitchToSignup }: LoginFormProps) {
+  const { data: session } = useSession();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const router = useRouter();
+
+  console.log("Session data:", session);
+  console.log("Login status:", status);
   
-  const { login } = useAuth()
+  const { login, signup } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,6 +48,23 @@ export default function LoginForm({ onSwitchToSignup }: LoginFormProps) {
     }
   }
 
+  const handleLoginByProvider = async (provider: "google" | "facebook") => {
+    try {
+      await openAuthPopup(provider);
+      console.log("Session data222:", session);
+      console.log("Login status333:", status);
+      const name = session?.user?.name || "";
+      const email = session?.user?.email || "";
+      const password = "oauth_default_password"; // or generate a random one
+      const success = await signup(name, email, password)
+      if (!success) {
+        setError('Failed to create account')
+      }
+    } catch (e) {
+      console.warn("User cancelled login.");
+    }
+  };
+
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -47,6 +72,30 @@ export default function LoginForm({ onSwitchToSignup }: LoginFormProps) {
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
           <p className="text-gray-600">Sign in to your account</p>
         </div>
+        <div className="flex justify-center gap-4 mb-6">
+          <button
+            onClick={() => handleLoginByProvider("google")}
+            className="border border-gray-300 rounded-md p-3 hover:bg-gray-100 transition-colors"
+          >
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
+          </button>
+
+          <button
+            onClick={() => handleLoginByProvider("facebook")}
+            className="border border-gray-300 rounded-md p-3 hover:bg-gray-100 transition-colors"
+          >
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg"
+              alt="Facebook"
+              className="w-5 h-5"
+            />
+          </button>
+        </div>
+
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (

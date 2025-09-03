@@ -4,6 +4,8 @@ import './globals.css'
 import { AuthProvider } from './contexts/AuthContext'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SessionProvider } from 'next-auth/react';
+import ClientProviders from '@/app/clientproviders'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
+        <ClientProviders>
           <div className="min-h-screen bg-gray-50">
             {children}
           </div>
-        </AuthProvider>
+        </ClientProviders>
         <ToastContainer
           position="top-right"
           autoClose={3000}
