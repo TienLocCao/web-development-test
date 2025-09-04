@@ -63,7 +63,7 @@ export default function SignupForm({ onSwitchToLogin }: SignupFormProps) {
           <p className="text-gray-600">Join our community today</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" data-testid="signup-form">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
               {error}
@@ -157,6 +157,7 @@ export default function SignupForm({ onSwitchToLogin }: SignupFormProps) {
           </div>
 
           <button
+            data-testid="signup-submit"
             type="submit"
             disabled={loading}
             className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
