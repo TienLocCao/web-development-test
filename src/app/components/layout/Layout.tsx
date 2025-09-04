@@ -5,7 +5,7 @@ import { useRedirectIfHome } from '@/app/hooks/useRedirectIfHome';
 
 interface LayoutProps {
   children: React.ReactNode;
-  containerRef?: React.RefObject<HTMLDivElement | null>;
+  containerRef?: React.Ref<HTMLDivElement>;
 }
 
 const Layout = ({ children, containerRef  }: LayoutProps) => {

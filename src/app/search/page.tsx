@@ -19,7 +19,7 @@ export default function SearchLayout() {
 
   return (
     <Layout containerRef={containerRef}>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_300px] xl:grid-cols-[300px_1fr] px-6 gap-6 min-h-screen">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-[300px_1fr] xl:grid-cols-[300px_1fr] px-6 gap-6 min-h-screen">
         <Suspense fallback={<div>Loading filters...</div>}>
           <SidebarFilters />
         </Suspense>

@@ -19,9 +19,9 @@ cd jsonplaceholder-app
 ### 2. Install Dependencies
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 # or
-yarn install --legacy-peer-deps
+yarn install
 ```
 
 ### 3. Run the Development Server
