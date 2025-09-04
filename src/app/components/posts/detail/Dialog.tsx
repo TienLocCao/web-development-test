@@ -14,7 +14,7 @@ import PostDetailSkeleton from './Skeleton'
 import { toast } from 'react-toastify';
 
 interface Props {
-  post: Post,            // ✅ nhận cả post
+  post: Post,  
   open: boolean
   onOpenChange: (v: boolean) => void
 }
@@ -73,21 +73,26 @@ export default function PostDetailDialog({ post, open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-        
+      <DialogContent 
+        className="sm:max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden"
+        aria-labelledby="dialog-title"
+        aria-describedby="post-content"
+      >
         {/* Header */}
         <div className="sticky top-0 bg-white z-10 px-4 py-3 border-b shadow-sm">
-          <h2 className="text-center text-lg font-medium text-gray-900">
-            Bài viết của {post.user?.name || `User ${post.userId}`}
+          <h2 className="text-center text-lg font-medium text-gray-900" id="dialog-title">
+            {post.user?.name || `User ${post.userId}`}'s Post
           </h2>
         </div>
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-6">
           <h1 className="text-xl font-bold text-gray-900">{post.title}</h1>
-          {post.body && (
-            <p className="text-gray-700 whitespace-pre-wrap">{post.body}</p>
-          )}
+          <div id="post-content">
+            {post.body && (
+              <p className="text-gray-700 whitespace-pre-wrap">{post.body}</p>
+            )}
+          </div>
 
           <div className="flex items-center space-x-4 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
