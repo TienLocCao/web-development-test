@@ -2,14 +2,14 @@
 
 import { Search, X } from "lucide-react";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 interface SearchBoxProps {
   width?: string;
 }
 
-export default function SearchBox({ width = "" }: SearchBoxProps) {
+function SearchBox({ width = "" }: SearchBoxProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasText, setHasText] = useState(false);
   const router = useRouter();
@@ -66,5 +66,15 @@ export default function SearchBox({ width = "" }: SearchBoxProps) {
         </button>
       )}
     </div>
+  );
+}
+
+export default function SearchBoxWithSuspense(props: SearchBoxProps) {
+  return (
+    <Suspense fallback={
+      <div className="w-full rounded-lg h-10 bg-gray-200 animate-pulse"></div>
+    }>
+      <SearchBox {...props} />
+    </Suspense>
   );
 }

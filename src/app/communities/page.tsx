@@ -1,9 +1,11 @@
+"use client";
 import Sidebar from "@/app/components/communities/Sidebar";
 import PremiumCard from "@/app/components/communities/PremiumCard";
 import FilterBar from "@/app/components/communities/FilterBar";
 import CommunityList from "@/app/components/communities/List";
 import { Community } from "@/app/components/communities/Card";
 import Layout from "@/app/components/layout/Layout"
+import { Suspense } from "react";
 const mockData: Community[] = [
   {
     id: "1",
@@ -49,7 +51,18 @@ export default function CommunitiesPage() {
         {/* Sidebar */}
         <div className="max-md:w-full max-md:mt-8 flex flex-col gap-4 w-64">
           <div className="md:sticky md:top-8 flex flex-col gap-4">
-            <Sidebar />
+            <Suspense fallback={
+              <div className="w-full md:w-64 bg-white rounded-lg shadow-sm p-4 space-y-4 animate-pulse">
+                <div className="h-10 bg-gray-200 rounded"></div>
+                <div className="space-y-2">
+                  <div className="h-8 bg-gray-200 rounded w-full"></div>
+                  <div className="h-8 bg-gray-200 rounded w-full"></div>
+                  <div className="h-8 bg-gray-200 rounded w-full"></div>
+                </div>
+              </div>
+            }>
+              <Sidebar />
+            </Suspense>
             <PremiumCard />
           </div>
         </div>
