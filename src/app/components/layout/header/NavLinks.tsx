@@ -2,6 +2,7 @@
 
 import { Home, Users, Store } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
+import type { Route } from "next";
 
 const navLinks = [
   { name: "Newsfeed", href: "/newsfeed", icon: Home, isDisabled: false },
@@ -20,7 +21,7 @@ export default function NavLinks() {
         return (
           <button
             key={index}
-            onClick={() => !item.isDisabled && router.push(item.href)}
+            onClick={() => !item.isDisabled && router.push(item.href  as Route)}
             disabled={item.isDisabled}
             className={`group flex h-12 w-20 flex-col justify-between rounded-t-lg 
               ${item.isDisabled ? "cursor-not-allowed opacity-50" : "hover:bg-neutral-200"}
