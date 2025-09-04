@@ -62,7 +62,7 @@ export default function SearchAndFilter({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search posts by title or content..."
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-colors"
           />
           <button
             type="submit"
