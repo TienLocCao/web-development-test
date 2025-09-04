@@ -17,24 +17,10 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-//   callbacks: {
-//     async session({ session, user }) {
-//       // Gắn thêm id từ DB vào session
-//       if (session.user) {
-//         session.user.id = user.id;
-//       }
-//       return session;
-//     },
-//   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // nếu login bằng popup thì redirect về popup callback
-      // if (url.includes('/popup')) {
-      //   return `${baseUrl}/auth/callback-popup`;
-      // }
-      // return baseUrl;
       if (url.includes('/auth/popup-callback')) {
-        return url; // giữ nguyên để xử lý postMessage
+        return url; 
       }
       return baseUrl;
     },

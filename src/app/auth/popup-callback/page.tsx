@@ -6,7 +6,7 @@ export default function CallbackPopup() {
   useEffect(() => {
     if (window.opener) {
       window.opener.postMessage('auth-success', '*');
-      window.close(); // đóng popup
+      window.close(); 
     }
   }, []);
 

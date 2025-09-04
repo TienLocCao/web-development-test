@@ -40,10 +40,8 @@ export default function CommunitiesMyCommunities() {
 
       {/* Community list */}
       <div className="flex items-center gap-2">
-        {/* Avatar bằng text */}
         <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-blue-600 text-white text-xs font-bold">
           {communities[0].shortName}
-          {/* Badge nhỏ */}
           {communities[0].badge && (
             <span className="absolute -bottom-1 -right-1 bg-indigo-500 text-white text-[10px] px-1 py-0.5 rounded-md font-semibold">
               {communities[0].badge}
@@ -51,7 +49,6 @@ export default function CommunitiesMyCommunities() {
           )}
         </div>
 
-        {/* Tên + verified */}
         <span className="text-sm font-medium text-blue-600 flex items-center gap-1">
           {communities[0].name}
           {communities[0].verified && (

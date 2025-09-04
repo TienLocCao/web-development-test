@@ -8,19 +8,12 @@ export default function GooglePopup() {
     const doLogin = async () => {
       const res = await signIn('google', {
         redirect: false,
-        callbackUrl: '/auth/popup-callback', // trang sẽ xử lý postMessage
+        callbackUrl: '/auth/popup-callback', 
       });
-
-      // if (res?.ok && res.url) {
-      //   window.location.href = res.url;
-      // } else {
-      //   window.opener?.postMessage('auth-cancel', '*');
-      //   window.close();
-      // }
     };
 
     doLogin();
   }, []);
 
-  return <p>Đang đăng nhập Google...</p>;
+  return <p>Signing in to Google...</p>;
 }

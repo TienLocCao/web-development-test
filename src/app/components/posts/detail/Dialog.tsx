@@ -8,7 +8,7 @@ import { Comment as CommentType } from "@/app/types/comment";
 import { getPost } from '@/app/services/posts'
 import Comment from '@/app/components/comments/Comment'
 import CommentForm from '@/app/components/comments/CommentForm'
-import { Calendar, MessageCircle, Loader2 } from 'lucide-react'
+import { Calendar, MessageCircle } from 'lucide-react'
 import { Dialog, DialogContent } from "@/app/components/ui/dialog"
 import PostDetailSkeleton from './Skeleton'
 import { toast } from 'react-toastify';

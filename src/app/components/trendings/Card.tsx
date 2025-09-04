@@ -62,14 +62,11 @@ export default function TrendingCard() {
       <div className="flex flex-col divide-y divide-gray-200">
         {items.map((item) => (
           <article key={item.id} className="py-3 flex gap-2">
-            {/* Số thứ tự */}
             <span className="text-sm font-bold text-gray-500 w-4">
               {item.id}
             </span>
 
-            {/* Nội dung */}
             <div className="flex flex-col gap-1">
-              {/* Author */}
               <div className="flex items-center gap-1 text-sm text-blue-600 font-medium">
                 <span className="flex items-center justify-center w-6 h-6 rounded-lg bg-blue-600 text-white text-xs font-bold">
                   {item.authorShort}
@@ -80,7 +77,6 @@ export default function TrendingCard() {
                 )}
               </div>
 
-              {/* Title */}
               <p className="text-sm text-gray-800">{item.title}</p>
             </div>
           </article>

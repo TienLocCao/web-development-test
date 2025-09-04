@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Post } from '@/app/types/post'
-import { User, MessageCircle, Calendar, ArrowRight } from 'lucide-react'
+import { User, MessageCircle, Calendar } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import PostDetailDialog from '@/app/components/posts/detail/Dialog'
 

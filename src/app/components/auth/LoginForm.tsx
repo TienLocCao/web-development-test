@@ -48,8 +48,7 @@ export default function LoginForm({ onSwitchToSignup }: LoginFormProps) {
   const handleLoginByProvider = async (provider: "google" | "facebook") => {
     try {
       await openAuthPopup(provider);
-      console.log("Session data222:", session);
-      console.log("Login status333:", status);
+
       const name = session?.user?.name || "";
       const email = session?.user?.email || "";
       const password = "oauth_default_password"; // or generate a random one

@@ -3,8 +3,11 @@ import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 import NotificationList, { Notification } from "./NotificationList";
 import { getNotifications } from "@/app/services/notifications"
+import PostDetailDialog from '@/app/components/posts/detail/Dialog'
 
 export default function NotificationPopover() {
+  const [open, setOpen] = useState(false)
+  const [postClick, setPostClick] = useState({} as any);
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
@@ -14,6 +17,9 @@ export default function NotificationPopover() {
   }, []);
 
   const handleItemClick = (id: string) => {
+    setOpen(true);
+    let post = notifications.find(n => n.id === id);
+    setPostClick(post);
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, read: true } : n))
     );
@@ -52,6 +58,7 @@ export default function NotificationPopover() {
           <Popover.Arrow className="fill-gray stroke-gray-700" />
         </Popover.Content>
       </Popover.Portal>
+      <PostDetailDialog post={postClick} open={open} onOpenChange={setOpen} />
     </Popover.Root>
   );
 }

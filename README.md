@@ -45,3 +45,6 @@ For testing purposes, you can use these demo credentials:
 
 Or create a new account using the signup functionality.
 
+## WEB review
+https://stackblitz.com/edit/github-6zq3kdla
+

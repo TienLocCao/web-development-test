@@ -28,7 +28,7 @@ export default function NotificationList({ notifications, onItemClick }: Props) 
         ))
       ) : (
         <p className="p-4 text-sm text-gray-500 text-center">
-          Không có thông báo nào
+          No notifications
         </p>
       )}
     </div>

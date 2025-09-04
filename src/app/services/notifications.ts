@@ -9,6 +9,7 @@ export async function getNotifications(limit: number = 5) {
     id: String(post.id),
     title: post.title,
     message: post.body,
+    body: post.body,
     time: "Vừa xong",
     read: false,
   }))
