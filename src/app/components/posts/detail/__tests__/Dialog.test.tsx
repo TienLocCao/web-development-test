@@ -37,6 +37,14 @@ const comments = [
   { id: 2, postId: 1, name: "B", email: "b@email.com", body: "Comment 2" },
 ];
 
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterAll(() => {
+  (console.error as jest.Mock).mockRestore();
+});
+
 describe("PostDetailDialog", () => {
   beforeEach(() => {
     jest.clearAllMocks();
