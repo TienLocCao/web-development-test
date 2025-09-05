@@ -1,4 +1,3 @@
-// Mock next/navigation: useRouter và giữ nguyên các hook khác nếu có
 jest.mock("next/navigation", () => {
   const actual = jest.requireActual("next/navigation");
   return {
